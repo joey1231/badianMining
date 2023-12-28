@@ -92,6 +92,7 @@ class UserSeeder extends Seeder
                 $new_user->is_owner = $user['owner'];
                 $new_user->username = $user['username'];
                 $new_user->email = $user['email'];
+                $new_user->owner = $user['owner'];
                 $new_user->password = $user['password'];
                 $new_user->hash_id = hash('sha256', uniqid());
                 $new_user->company_id = $company->id;
