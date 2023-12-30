@@ -16,7 +16,7 @@ class RolePermissionSeeder extends Seeder
     {
         $permissions = [
             'admin' => 'all',
-            'Owner' => [
+            'owner' => [
                 'sales.view',
                 // 'sales.edit',
                 // 'sales.create',
@@ -28,7 +28,7 @@ class RolePermissionSeeder extends Seeder
                 // 'users.view',
 
             ],
-            'Investor' => [
+            'investor' => [
                 'sales.view',
                 'sharings.view',
             ],
