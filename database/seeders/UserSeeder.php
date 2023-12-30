@@ -27,6 +27,44 @@ class UserSeeder extends Seeder
                         'email' => 'joeydngcng1233@gmail.com',
                         'password' => bcrypt('123456'),
                         'role' => [1, 3],
+                        'investorDetail' => [
+                            'share_type' => 'percentage',
+                            'share_value' => 13,
+                            'invest_on' => '2023-10-03 00:00:00',
+                            'share_start' => '2023-10-03 00:00:00',
+                            'invest_value' => 300000,
+                        ],
+                    ],
+                    [
+                        'name' => 'Jonifer Dingcong',
+                        'owner' => true,
+                        'username' => 'jonifer1111',
+                        'email' => 'none',
+                        'password' => bcrypt('123456'),
+                        'role' => [1, 3],
+                        'investorDetail' => [
+                            'share_type' => 'percentage',
+                            'share_value' => 13,
+                            'invest_on' => '2023-10-03 00:00:00',
+                            'share_start' => '2023-10-03 00:00:00',
+                            'invest_value' => 300000,
+                        ],
+                    ],
+
+                    [
+                        'name' => 'Joshua Dingcong',
+                        'owner' => true,
+                        'username' => 'joshua1111',
+                        'email' => 'joeydngcng1233@gmail.com',
+                        'password' => bcrypt('123456'),
+                        'role' => [3],
+                        'investorDetail' => [
+                            'share_type' => 'percentage',
+                            'share_value' => 13,
+                            'invest_on' => '2023-10-03 00:00:00',
+                            'share_start' => '2023-10-03 00:00:00',
+                            'invest_value' => 300000,
+                        ],
                     ],
                     [
                         'name' => 'Nenita Dingcong',
@@ -35,6 +73,13 @@ class UserSeeder extends Seeder
                         'email' => 'nenita@gmail.1',
                         'password' => bcrypt('123456'),
                         'role' => [1, 3],
+                        'investorDetail' => [
+                            'share_type' => 'percentage',
+                            'share_value' => 27.67,
+                            'invest_on' => '2023-10-03 00:00:00',
+                            'share_start' => '2023-10-03 00:00:00',
+                            'invest_value' => 300000,
+                        ],
                     ],
 
                     [
@@ -43,39 +88,16 @@ class UserSeeder extends Seeder
                         'username' => 'geno1231',
                         'email' => 'none',
                         'password' => bcrypt('123456'),
-                        'role' => [1, 3],
-                    ],
-                    [
-                        'name' => 'Dante Portes',
-                        'owner' => false,
-                        'username' => 'dante1111',
-                        'email' => 'none',
-                        'password' => bcrypt('123456'),
-                        'role' => [2],
+                        'role' => [3],
                         'investorDetail' => [
-                            'share_type' => 'ton',
-                            'share_value' => 200,
+                            'share_type' => 'percentage',
+                            'share_value' => 33.33,
                             'invest_on' => '2023-10-03 00:00:00',
-                            'share_start' => '2024-02-03 00:00:00',
+                            'share_start' => '2023-10-03 00:00:00',
                             'invest_value' => 300000,
                         ],
                     ],
 
-                    [
-                        'name' => 'Ethel Joy Portes Orbeta',
-                        'owner' => false,
-                        'username' => 'joy1111',
-                        'email' => 'none',
-                        'password' => bcrypt('123456'),
-                        'role' => [2],
-                        'investorDetail' => [
-                            'share_type' => 'ton',
-                            'share_value' => 150,
-                            'invest_on' => '2023-12-03 00:00:00',
-                            'share_start' => '2024-04-03 00:00:00',
-                            'invest_value' => 200000,
-                        ],
-                    ],
                 ],
             ],
         ];
@@ -100,15 +122,15 @@ class UserSeeder extends Seeder
                 $new_user->save();
                 $new_user->roles()->syncWithoutDetaching($user['role']);
 
-                if (in_array(2, $user['role'])) {
-                    $investor_detail = new InvestorDetail;
-                    $investor_detail->hash_id = hash('sha256', uniqid());
-                    foreach ($user['investorDetail'] as $key => $v) {
-                        $investor_detail->{$key} = $v;
-                    }
-                    $investor_detail->user_id = $new_user->id;
-                    $investor_detail->save();
+                // if (in_array(2, $user['role'])) {
+                $investor_detail = new InvestorDetail;
+                $investor_detail->hash_id = hash('sha256', uniqid());
+                foreach ($user['investorDetail'] as $key => $v) {
+                    $investor_detail->{$key} = $v;
                 }
+                $investor_detail->user_id = $new_user->id;
+                $investor_detail->save();
+                //}
             }
         }
     }

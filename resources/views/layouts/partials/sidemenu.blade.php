@@ -17,39 +17,44 @@
 						<div id="kt_aside_menu" class="kt-aside-menu " data-ktmenu-vertical="1" data-ktmenu-scroll="1" data-ktmenu-dropdown-timeout="500">
 							<ul class="kt-menu__nav ">
 								<li class="kt-menu__item  kt-menu__item--active" aria-haspopup="true"><a href="{{url('/')}}" class="kt-menu__link "><i class="kt-menu__link-icon flaticon2-architecture-and-city"></i><span class="kt-menu__link-text">Dashboard</span></a></li>
-								 @if($isOwner)
+								 @if($isOwner || $isAdmin)
 								<li class="kt-menu__item  kt-menu__item--submenu" aria-haspopup="true" data-ktmenu-submenu-toggle="hover"><a href="javascript:;" class="kt-menu__link kt-menu__toggle"><i class="kt-menu__link-icon flaticon2-telegram-logo"></i><span class="kt-menu__link-text">Sales</span><i class="kt-menu__ver-arrow la la-angle-right"></i></a>
 									<div class="kt-menu__submenu "><span class="kt-menu__arrow"></span>
 										<ul class="kt-menu__subnav">
-											<li class="kt-menu__item  kt-menu__item--parent" aria-haspopup="true"><span class="kt-menu__link"><span class="kt-menu__link-text">Sales</span></span></li>
 
+											<li class="kt-menu__item  kt-menu__item--parent" aria-haspopup="true"><span class="kt-menu__link"><span class="kt-menu__link-text">Sales</span></span></li>
+											@if($isAdmin)
 											<li class="kt-menu__item  kt-menu__item--submenu" aria-haspopup="true" data-ktmenu-submenu-toggle="hover"><a href="{{ url('sales/create')}}" class="kt-menu__link kt-menu__toggle"><i class="kt-menu__link-bullet kt-menu__link-bullet--line"><span></span></i><span class="kt-menu__link-text">Builder</span></a>
 
 											</li>
-
+											@endif
+											 @if($isOwner || $isAdmin)
 											<li class="kt-menu__item  kt-menu__item--submenu" aria-haspopup="true" data-ktmenu-submenu-toggle="hover"><a href="{{ url('sales')}}" class="kt-menu__link kt-menu__toggle"><i class="kt-menu__link-bullet kt-menu__link-bullet--line"><span></span></i><span class="kt-menu__link-text">Listing</span></a>
 
 											</li>
+											@endif
 
 										</ul>
 									</div>
 								</li>
-								<li class="kt-menu__item  kt-menu__item--submenu" aria-haspopup="true" data-ktmenu-submenu-toggle="hover"><a href="javascript:;" class="kt-menu__link kt-menu__toggle"><i class="kt-menu__link-icon flaticon2-telegram-logo"></i><span class="kt-menu__link-text">Sharing</span><i class="kt-menu__ver-arrow la la-angle-right"></i></a>
-									<div class="kt-menu__submenu "><span class="kt-menu__arrow"></span>
-										<ul class="kt-menu__subnav">
-											<li class="kt-menu__item  kt-menu__item--parent" aria-haspopup="true"><span class="kt-menu__link"><span class="kt-menu__link-text">Sharing</span></span></li>
+								@if($isAdmin)
+									<li class="kt-menu__item  kt-menu__item--submenu" aria-haspopup="true" data-ktmenu-submenu-toggle="hover"><a href="javascript:;" class="kt-menu__link kt-menu__toggle"><i class="kt-menu__link-icon flaticon2-telegram-logo"></i><span class="kt-menu__link-text">Sharing</span><i class="kt-menu__ver-arrow la la-angle-right"></i></a>
+										<div class="kt-menu__submenu "><span class="kt-menu__arrow"></span>
+											<ul class="kt-menu__subnav">
+												<li class="kt-menu__item  kt-menu__item--parent" aria-haspopup="true"><span class="kt-menu__link"><span class="kt-menu__link-text">Sharing</span></span></li>
 
-											<li class="kt-menu__item  kt-menu__item--submenu" aria-haspopup="true" data-ktmenu-submenu-toggle="hover"><a href="{{ url('shares/create')}}" class="kt-menu__link kt-menu__toggle"><i class="kt-menu__link-bullet kt-menu__link-bullet--line"><span></span></i><span class="kt-menu__link-text">Builder</span></a>
+												<li class="kt-menu__item  kt-menu__item--submenu" aria-haspopup="true" data-ktmenu-submenu-toggle="hover"><a href="{{ url('shares/create')}}" class="kt-menu__link kt-menu__toggle"><i class="kt-menu__link-bullet kt-menu__link-bullet--line"><span></span></i><span class="kt-menu__link-text">Builder</span></a>
 
-											</li>
+												</li>
 
-											<li class="kt-menu__item  kt-menu__item--submenu" aria-haspopup="true" data-ktmenu-submenu-toggle="hover"><a href="{{ url('shares')}}" class="kt-menu__link kt-menu__toggle"><i class="kt-menu__link-bullet kt-menu__link-bullet--line"><span></span></i><span class="kt-menu__link-text">Listing</span></a>
+												<li class="kt-menu__item  kt-menu__item--submenu" aria-haspopup="true" data-ktmenu-submenu-toggle="hover"><a href="{{ url('shares')}}" class="kt-menu__link kt-menu__toggle"><i class="kt-menu__link-bullet kt-menu__link-bullet--line"><span></span></i><span class="kt-menu__link-text">Listing</span></a>
 
-											</li>
+												</li>
 
-										</ul>
-									</div>
-								</li>
+											</ul>
+										</div>
+									</li>
+									@endif
 								@endif
 							</ul>
 						</div>

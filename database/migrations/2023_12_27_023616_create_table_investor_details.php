@@ -88,6 +88,7 @@ return new class extends Migration
     {
         Schema::dropIfExists('shared');
         Schema::dropIfExists('sharing_expenses');
+        Schema::dropIfExists('sharing_items');
         Schema::dropIfExists('sharings');
         Schema::dropIfExists('investor_details');
     }

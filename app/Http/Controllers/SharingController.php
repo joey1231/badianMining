@@ -242,7 +242,7 @@ class SharingController extends Controller
                     $totalAmountInvestor += $inv_total_share;
                     break;
                 case 'percentage':
-                    $inv_total_share = $sharing->total_amount * ($investor->share_value / 100);
+                    $inv_total_share = $sharing->total_net_amount * ($investor->share_value / 100);
 
                     $totalAmountInvestor += $inv_total_share;
                     break;
@@ -260,20 +260,20 @@ class SharingController extends Controller
             $shared->save();
         }
 
-        $remainingAmount = $sharing->total_net_amount - $totalAmountInvestor;
+        // $remainingAmount = $sharing->total_net_amount - $totalAmountInvestor;
 
-        $ownerAmountPershare = $remainingAmount * ($per_percentage / 100);
+        // $ownerAmountPershare = $remainingAmount * ($per_percentage / 100);
 
-        foreach ($users as $user) {
-            $shared = new Shared;
-            $shared->hash_id = hash('sha256', uniqid());
-            $shared->share_type = 'percentage';
-            $shared->share_value = $per_percentage;
-            $shared->amount = $ownerAmountPershare;
-            $shared->user_id = $user->id;
-            $shared->sharing_id = $sharing->id;
-            $shared->save();
-        }
+        // foreach ($users as $user) {
+        //     $shared = new Shared;
+        //     $shared->hash_id = hash('sha256', uniqid());
+        //     $shared->share_type = 'percentage';
+        //     $shared->share_value = $per_percentage;
+        //     $shared->amount = $ownerAmountPershare;
+        //     $shared->user_id = $user->id;
+        //     $shared->sharing_id = $sharing->id;
+        //     $shared->save();
+        // }
 
     }
 

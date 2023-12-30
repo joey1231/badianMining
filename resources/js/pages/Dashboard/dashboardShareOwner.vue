@@ -16,12 +16,15 @@
 																	<th>{{user.name | capitalize}}</th>
 																</tr>
 
-																
-
+																<tr>
+																	<th>Share Percentage(%)</th>
+																	<th> {{investorDetail.share_value | NumberFormat}}</th>
+																</tr>
 																<tr>
 																	<th>Unpaid Shares</th>
 																	<th> {{unpaid | money}}</th>
 																</tr>
+																
 														</thead>
 													</table>
 													<hr/>

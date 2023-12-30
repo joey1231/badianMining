@@ -18,14 +18,14 @@ class RolePermissionSeeder extends Seeder
             'admin' => 'all',
             'Owner' => [
                 'sales.view',
-                'sales.edit',
-                'sales.create',
-                'sales.update',
+                // 'sales.edit',
+                // 'sales.create',
+                // 'sales.update',
                 'sharings.view',
-                'sharings.edit',
-                'sharings.create',
-                'sharings.update',
-                'users.view',
+                // 'sharings.edit',
+                // 'sharings.create',
+                // 'sharings.update',
+                // 'users.view',
 
             ],
             'Investor' => [

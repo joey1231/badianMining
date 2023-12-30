@@ -31,9 +31,10 @@ class ComposerProvider extends ServiceProvider
             if (!is_null($user)) {
                 $is_owner = $user->roles()->where('name', 'owner')->count();
                 $is_investor = $user->roles()->where('name', 'investor')->count();
-
+                $is_Admin = $user->roles()->where('name', 'admin')->count();
                 $view->with('isInvestor', $is_investor > 0);
                 $view->with('isOwner', $is_owner > 0);
+                $view->with('isAdmin', $is_Admin > 0);
             }
 
         });
