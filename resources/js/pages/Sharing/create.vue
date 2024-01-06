@@ -39,8 +39,13 @@
 														
 														<th width="400">Sale</th>
 														<th width="400">Created Date</th>
-														<th width="400">Total Amount</th>
+														<th width="400">Sale Price</th>
+
 														<th width="400">Total Tons</th>
+														<th width="400">Total Amount</th>
+														<th width="400">Total Expences</th>
+														
+														<th width="400">Total Net Amount</th>
 														<th width="200" style="text-align:right">Action</th>
 													</tr>
 												</thead>
@@ -50,12 +55,26 @@
 															
 															<td>{{i.name }}</td>
 															<td>{{i.created_at | DateFormat}}</td>
-															<td>{{i.total_amount | NumberFormat}}</td>
+															<td>{{i.sale_price | NumberFormat}}</td>
 															<td>{{i.total_kg | NumberFormat}}</td>
-														
+															<td>{{i.total_amount | NumberFormat}}</td>
+															<td>{{i.total_expences | NumberFormat}}</td>
+															
+															<td>{{i.total_net_amount | NumberFormat}}</td>
 															<td style="text-align:right"> <button class="btn btn-danger" @click="deleteField(index)" ><i class="flaticon-delete"></i></button> </td>
 														</tr>
+														<tr >
+															
+															<td class="total" colspan="2"><b>Total: </b></td>
+															
+															<td><b>{{total_sale_price | NumberFormat}}</b></td>
+															<td><b>{{total_total_kg | NumberFormat}}</b></td>
+															<td><b>{{total_total_amount | NumberFormat}}</b></td>
+															<td><b>{{total_total_expences | NumberFormat}}</b></td>
+															
 														
+															<td><b>{{total_total_net_amount | NumberFormat}}</b></td>
+														</tr>
 												</tbody>
 											</table>
 
@@ -114,6 +133,14 @@
 																
 																	<td style="text-align:right"> <button class="btn btn-danger" @click="deleteFieldExpense(index)" ><i class="flaticon-delete"></i></button> </td>
 																</tr>
+
+																<tr >
+															
+																<td class="total"><b>Total: </b></td>
+																
+																<td><b>{{model.total_expences  | NumberFormat}}</b></td>
+															
+														</tr>
 																
 														</tbody>
 													</table>
@@ -151,6 +178,9 @@
 <style>
 .el-select{
 	width:100%;
+}
+.total{
+	text-align: right;
 }
 </style>
 <script type="text/javascript">
@@ -223,7 +253,12 @@
 				},
 				logos:[],
 				selected_logo:{},
-
+				selected_logo:{},
+				total_sale_price:0,
+				total_total_kg:0,
+				total_total_amount:0,
+				total_total_expences:0,
+				total_total_net_amount:0,
 			}
 		},
 		watch: {
@@ -331,7 +366,7 @@
 				var total_amount = 0 
 				$.each( this.items, function( key, value ) {
 				  	total_kg += parseFloat(value.total_kg);
-				  	total_amount += parseFloat(value.total_amount);
+				  	total_amount += parseFloat(value.total_net_amount);
 				});
 
 				
@@ -405,7 +440,21 @@
 				    return +(Math.round(num + "e+2")  + "e-2");
 			},
 			deleteField(index) {
-				this.items.splice(index,1);
+				let me = this;
+				me.items.splice(index,1);
+				me.total_sale_price=0;
+				me.total_total_kg=0;
+				me.total_total_amount=0;
+				me.total_total_expences=0;
+				me.total_total_net_amount=0;
+				$.each( me.items , function( key, value ) {
+				  	me.total_sale_price+= value.sale_price;
+					me.total_total_kg+= value.total_kg;
+					me.total_total_amount+= value.total_amount;
+					me.total_total_expences+= value.total_expences;
+					me.total_total_net_amount+= value.total_net_amount;
+				});
+				me.calculateSales();
 			},
 			deleteFieldExpense(index){
 				this.expenses.splice(index,1);
@@ -431,6 +480,14 @@
 			Promise.all([saleService.getSalesPerStatus('Unshared')]).then((data) => {
 				me.items = data[0].data.data;
 				me.calculateSales();
+
+				$.each( me.items , function( key, value ) {
+				  	me.total_sale_price+= value.sale_price;
+					me.total_total_kg+= value.total_kg;
+					me.total_total_amount+= value.total_amount;
+					me.total_total_expences+= value.total_expences;
+					me.total_total_net_amount+= value.total_net_amount;
+				});
 			}).catch((data)=> {
 				console.log(data);
 			});

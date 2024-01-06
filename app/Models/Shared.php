@@ -15,4 +15,8 @@ class Shared extends Model
     {
         return $this->belongsTo(User::class);
     }
+    public function share()
+    {
+        return $this->belongsTo(Sharing::class, 'sharing_id');
+    }
 }

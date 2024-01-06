@@ -28,6 +28,8 @@ class Controller extends BaseController
 
             if (!is_null($this->user)) {
                 $this->company = $this->user->company;
+
+                $this->isAdmin = $this->user->roles()->where('name', 'admin')->count() > 0;
             }
 
             return $next($request);

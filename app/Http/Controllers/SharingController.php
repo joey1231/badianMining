@@ -218,7 +218,13 @@ class SharingController extends Controller
 
     public function info($hash_id)
     {
-        $share = Sharing::with('items.sale', 'expenses', 'shares.user')->where('hash_id', $hash_id)->first();
+        if ($this->isAdmin) {
+            $share = Sharing::with('items.sale', 'expenses', 'shares.user')->where('hash_id', $hash_id)->first();
+        } else {
+            $user = $this->user;
+            $share = Sharing::with(['items.sale', 'expenses', 'shares' => function ($query) use ($user) {$query->where('user_id', $user->id);}, 'shares.user' => function ($query) use ($user) {$query->where('id', $user->id);}])->where('hash_id', $hash_id)->first();
+
+        }
 
         return $this->successResponse('fetch information', $share);
     }

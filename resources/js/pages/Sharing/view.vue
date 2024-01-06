@@ -39,10 +39,13 @@
 														
 														<th width="400">Sale</th>
 														<th width="400">Created Date</th>
-														
-														<th width="400">Total Amount</th>
+														<th width="400">Sale Price</th>
+
 														<th width="400">Total Tons</th>
+														<th width="400">Total Amount</th>
+														<th width="400">Total Expences</th>
 														
+														<th width="400">Total Net Amount</th>
 													</tr>
 												</thead>
 												<tbody>
@@ -50,13 +53,27 @@
 														<tr v-for="(i, index)  in items">
 															
 															<td>{{i.sale.name }}</td>
-															<td>{{i.sale.created_at | DateFormat }}</td>
-															<td>{{i.total_amount | NumberFormat}}</td>
-															<td>{{i.total_kg | NumberFormat}}</td>
-														
+															<td>{{i.sale.created_at | DateFormat}}</td>
+															<td>{{i.sale.sale_price | NumberFormat}}</td>
+															<td>{{i.sale.total_kg | NumberFormat}}</td>
+															<td>{{i.sale.total_amount | NumberFormat}}</td>
+															<td>{{i.sale.total_expences | NumberFormat}}</td>
 															
-														</tr>
 														
+															<td>{{i.sale.total_net_amount | NumberFormat}}</td>
+														</tr>
+														<tr >
+															
+															<td class="total" colspan="2"><b>Total: </b></td>
+															
+															<td><b>{{total_sale_price | NumberFormat}}</b></td>
+															<td><b>{{total_total_kg | NumberFormat}}</b></td>
+															<td><b>{{total_total_amount | NumberFormat}}</b></td>
+															<td><b>{{total_total_expences | NumberFormat}}</b></td>
+															
+														
+															<td><b>{{total_total_net_amount | NumberFormat}}</b></td>
+														</tr>
 												</tbody>
 											</table>
 
@@ -96,6 +113,13 @@
 																</tr>
 																
 														</tbody>
+														<tr >
+															
+																<td class="total"><b>Total: </b></td>
+																
+																<td ><b>{{model.total_expences  | NumberFormat}}</b></td>
+															
+														</tr>
 													</table>
 
 													</div>
@@ -116,9 +140,10 @@
 																<th width="400">Name</th>
 																<th width="400">Status</th>
 																<th width="400">Share Type</th>
+															
+																<th width="400">Total Net Amount</th>
 																<th width="400">Share Value</th>
-																<th width="400">Total Amount</th>
-
+																<th width="400">Total Share Amount</th>
 																<th width="400">Action</th>
 															</tr>
 														</thead>
@@ -131,9 +156,10 @@
 																	</td>
 
 																	<td>{{i.share_type | capitalize}}</td>
-																	
-																	<td>{{i.share_value | NumberFormat}}</td>
-																	<td>{{i.amount | NumberFormat}}</td>
+																	<td><b>{{model.total_net_amount | NumberFormat}}</b></td>
+
+																	<td><b>{{i.share_value | NumberFormat}}</b></td>
+																	<td><b>{{i.amount | NumberFormat}}</b></td>
 																	<td> <button class="btn btn-success" @click="sharePaid(i.hash_id,index)" v-if="i.status == 'pending'"><i class="fa fa-check"></i></button> </td>
 																</tr>
 																
@@ -166,6 +192,9 @@
 <style>
 .el-select{
 	width:100%;
+}
+.total{
+	text-align: right;
 }
 </style>
 <script type="text/javascript">
@@ -236,7 +265,11 @@ import shareService from './../../services/share/index.js';
 				},
 				logos:[],
 				selected_logo:{},
-
+				total_sale_price:0,
+				total_total_kg:0,
+				total_total_amount:0,
+				total_total_expences:0,
+				total_total_net_amount:0,
 			}
 		},
 		watch: {
@@ -292,6 +325,14 @@ import shareService from './../../services/share/index.js';
 				me.expenses = me.model.expenses;
 				
 				me.shared = me.model.shares;
+
+				$.each( me.items , function( key, value ) {
+				  	me.total_sale_price+= value.sale.sale_price;
+					me.total_total_kg+= value.sale.total_kg;
+					me.total_total_amount+= value.sale.total_amount;
+					me.total_total_expences+= value.sale.total_expences;
+					me.total_total_net_amount+= value.sale.total_net_amount;
+				});
 			}).catch((data)=> {
 				console.log(data);
 			});

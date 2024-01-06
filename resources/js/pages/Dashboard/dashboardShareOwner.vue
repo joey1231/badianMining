@@ -48,7 +48,7 @@
 															
 																<th width="400">Total Amount</th>
 
-																
+																<th></th>
 															</tr>
 														</thead>
 														<tbody>
@@ -61,7 +61,7 @@
 
 																	
 																	<td>{{i.amount | NumberFormat}}</td>
-																	
+																	<button class="btn btn-primary" @click="showmodel(i.share.hash_id)"><i class="flaticon-visible"></i></button>
 																</tr>
 																
 														</tbody>
@@ -359,7 +359,10 @@
 		},
 
 		methods: {
-			
+			showmodel(hash_id) {
+				window.open(`/shares/show/${hash_id}`, "_blank");
+				
+			},
 		},
 		mounted(){
 			Promise.all([

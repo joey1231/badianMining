@@ -220,7 +220,7 @@ class DashboardController extends Controller
             'yearlyDataSetAmount' => $chartDataAmount,
             'user' => $user,
             'investorDetail' => $user->investorDetail,
-            'shares' => Shared::where('user_id', $user->id)->with('user')->get(),
+            'shares' => Shared::where('user_id', $user->id)->with('user', 'share')->get(),
             'unpaid' => Shared::where('user_id', $user->id)->where('status', 'pending')->sum('amount'),
         ];
 
